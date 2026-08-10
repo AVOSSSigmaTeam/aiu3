@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.5";
-const DEBUG = false; //return to false on prod
+const version = "3.0.7";
+const DEBUG = true; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -905,7 +905,13 @@ function updateCreatorAge(page) {
     age--;
   }
 
-  ageElement.textContent = `(${age} godina)`;
+  const getYearLabel = (age) => {
+    const lastDigit = age % 10;
+    if (lastDigit >= 2 && lastDigit <= 4) return "godine";
+    return "godina";
+  };
+
+  ageElement.textContent = `(${age} ${getYearLabel(age)})`;
 
   const isBirthday =
     today.getMonth() === birthDate.getMonth() &&
@@ -1380,6 +1386,23 @@ function initPricingGlowAnimation(page) {
     });
   });
 }
+function initBottomBarAnimation(page) {
+  page = page || document;
+  const bar = page.querySelector('[data-bottom-bar]');
+  if (!bar) return;
+
+  if (window.innerWidth >= 992) {
+    // desktop
+    gsap.set(bar, { x: "-50%", y: "6.25rem", opacity: 0 });
+    gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
+  }
+  if (window.innerWidth <= 991) {
+    // mobile
+    gsap.set(bar, { y: "6.25rem", opacity: 0 });
+    gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
+  }
+
+}
 
 function initFavicons(page) {
   page = page || document;
@@ -1479,6 +1502,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (has('[data-service-icon-box]')) initServiceIconBoxHoverAnimation();
   if (has('[data-pricing-with-glow]')) initPricingGlowAnimation();
+  if (has('[data-bottom-bar]')) initBottomBarAnimation();
 
   if (has('[data-copyright-year]')) setCopyrightYear();
 
