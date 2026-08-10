@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.9";
+const version = "3.0.10";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1506,6 +1506,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-testimonial-scroller]')) initTestimonialScrollers();
 
   if (has('[data-scroll-into-view-first]')) initScrollIntoViewFirst();
+  if (has('[data-fade-in-on-scroll]')) initFadeInOnScroll();
 
   if (has('[data-creator-card]')) initCreatorCardHoverAnimation();
   if (has('[data-edu-card]')) initEducationCardHoverAnimation();
