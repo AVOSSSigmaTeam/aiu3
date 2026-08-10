@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.11";
+const version = "3.0.12";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1163,26 +1163,64 @@ function initServiceIconBoxHoverAnimation(page) {
   });
 }
 
+// function initCreatorCardHoverAnimation(page) {
+//   page = page || document;
+//   if (!isDesktopLikeDevice) return;
+
+//   const allCards = page.querySelectorAll('[data-creator-card]');
+//   if (allCards.length === 0) return;
+
+//   allCards.forEach(card => {
+//     const image = card.querySelector('[data-creator-card-image]');
+//     const arrow = card.querySelector('[data-creator-card-arrow]');
+
+//     card.addEventListener("pointerenter", () => {
+//       gsap.to(image, {opacity: .66, ease: "outQuad", duration: 0.3});
+//       gsap.to(arrow, {opacity: 1, ease: "outQuad", duration: 0.3});
+//     });
+//     card.addEventListener("pointerleave", () => {
+//       gsap.to(image, {opacity: 1, ease: "outQuad", duration: 0.3});
+//       gsap.to(arrow, {opacity: .5, ease: "outQuad", duration: 0.3});
+//     });
+//   });
+// }
 function initCreatorCardHoverAnimation(page) {
   page = page || document;
-  if (!isDesktopLikeDevice) return;
 
-  const allCards = page.querySelectorAll('[data-creator-card]');
-  if (allCards.length === 0) return;
+  page.addEventListener('mouseover', (event) => {
 
-  allCards.forEach(card => {
+    const card = event.target.closest('[data-creator-card]');
+
+    if (!card || !page.contains(card)) return;
+
+    // Prevent repeated triggers when moving between child elements
+    if (card.contains(event.relatedTarget)) return;
+
     const image = card.querySelector('[data-creator-card-image]');
     const arrow = card.querySelector('[data-creator-card-arrow]');
 
-    card.addEventListener("pointerenter", () => {
-      gsap.to(image, {opacity: .66, ease: "outQuad", duration: 0.3});
-      gsap.to(arrow, {opacity: 1, ease: "outQuad", duration: 0.3});
-    });
-    card.addEventListener("pointerleave", () => {
-      gsap.to(image, {opacity: 1, ease: "outQuad", duration: 0.3});
-      gsap.to(arrow, {opacity: .5, ease: "outQuad", duration: 0.3});
-    });
+    gsap.to(image, {opacity: .66, ease: "outQuad", duration: 0.3});
+    gsap.to(arrow, {opacity: 1, ease: "outQuad", duration: 0.3});
+
   });
+
+  page.addEventListener('mouseout', (event) => {
+
+    const card = event.target.closest('[data-creator-card]');
+
+    if (!card || !page.contains(card)) return;
+
+    // Prevent repeated triggers when moving between child elements
+    if (card.contains(event.relatedTarget)) return;
+
+    const image = card.querySelector('[data-creator-card-image]');
+    const arrow = card.querySelector('[data-creator-card-arrow]');
+
+    gsap.to(image, {opacity: 1, ease: "outQuad", duration: 0.3});
+    gsap.to(arrow, {opacity: .5, ease: "outQuad", duration: 0.3});
+
+  });
+
 }
 
 function initBlogCardHoverAnimation(page) {
