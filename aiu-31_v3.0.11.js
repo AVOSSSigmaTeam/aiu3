@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.10";
+const version = "3.0.11";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1001,7 +1001,32 @@ function initScrollIntoViewFirst(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          markers: DEBUG,
+          // markers: DEBUG,
+        }
+      });
+    });
+  });
+}
+function initScrollIntoViewSecond(page) {
+  page = page || document;
+  gsap.matchMedia().add("(min-width: 992px)", () => {
+    const targets = page.querySelectorAll("[data-scroll-into-view-second]");
+    if (targets.length === 0) return;
+
+    targets.forEach(target => {
+      gsap.fromTo(target, {
+        y: "1.5rem",
+        opacity: 0
+      }, {
+        y: "0rem",
+        opacity: 1,
+        delay: 0.55,
+        duration: 0.7,
+        ease: "outQuart",
+        scrollTrigger: {
+          trigger: target,
+          start: "top bottom",
+          // markers: DEBUG,
         }
       });
     });
@@ -1010,22 +1035,24 @@ function initScrollIntoViewFirst(page) {
 
 function initFadeInOnScroll(page) {
   page = page || document;
-  const targets = page.querySelectorAll('[data-fade-in-on-scroll]');
-  if (targets.length === 0) return;
+  gsap.matchMedia().add("(min-width: 992px)", () => {
+    const targets = page.querySelectorAll('[data-fade-in-on-scroll]');
+    if (targets.length === 0) return;
 
-  targets.forEach(target => {
-    gsap.fromTo(target, {
-      opacity: 0,
-    }, {
-      opacity: 1,
-      delay: .5,
-      duration: 1,
-      ease: "outQuart",
-      scrollTrigger: {
-        trigger: target,
-        start: "top bottom",
-        // markers: DEBUG,
-      }
+    targets.forEach(target => {
+      gsap.fromTo(target, {
+        opacity: 0,
+      }, {
+        opacity: 1,
+        delay: .5,
+        duration: 1,
+        ease: "outQuart",
+        scrollTrigger: {
+          trigger: target,
+          start: "top bottom",
+          // markers: DEBUG,
+        }
+      });
     });
   });
 }
@@ -1416,6 +1443,22 @@ function initBottomBarAnimation(page) {
   gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
 }
 
+
+function initCreatorCategorySelect(page) {
+  const select = document.querySelector("[data-creator-category-select]");
+
+  select?.addEventListener("change", () => {
+    document
+      .querySelector(`[fs-list-value="${CSS.escape(select.value)}"]`)
+      ?.click();
+
+    requestAnimationFrame(() => {
+      select.focus();
+    });
+  });
+}
+
+
 function initFavicons(page) {
   page = page || document;
   const regularIcon =
@@ -1506,6 +1549,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-testimonial-scroller]')) initTestimonialScrollers();
 
   if (has('[data-scroll-into-view-first]')) initScrollIntoViewFirst();
+  if (has('[data-scroll-into-view-second]')) initScrollIntoViewSecond();
   if (has('[data-fade-in-on-scroll]')) initFadeInOnScroll();
 
   if (has('[data-creator-card]')) initCreatorCardHoverAnimation();
@@ -1520,6 +1564,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-copyright-year]')) setCopyrightYear();
 
   if (has('[data-animate-hero-lights]')) initGlowingLightsHeroSmall();
+
+  if (has('[data-creator-category-select]')) initCreatorCategorySelect();
 
   if (main && loaderContainer) {
     if (has('[data-animate-section-after-load]')) afterLoadHeroIntro();
