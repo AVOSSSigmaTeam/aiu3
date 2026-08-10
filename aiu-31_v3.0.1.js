@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "2.5.7";
-const DEBUG = false; //return to false on prod
+const version = "3.0.1";
+const DEBUG = true; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -1192,17 +1192,17 @@ function initEducationCardHoverAnimation(page) {
   allCards.forEach(card => {
     const arrow = card.querySelector('[data-edu-card-arrow]');
     const blob = card.querySelector('[data-edu-card-blob]');
-    const content = card.querySelector('[data-edu-card-content]');
+    // const content = card.querySelector('[data-edu-card-content]');
 
     card.addEventListener("pointerenter", () => {
       gsap.to(arrow, {opacity: 1, ease: "outQuad", duration: 0.3});
       gsap.to(blob, {opacity: .3, ease: "outQuad", duration: 0.3});
-      gsap.to(content, {borderColor: colorGlassBgWhite, ease: "outQuad", duration: 0.3});
+      gsap.to(card, {borderColor: colorGlassBgWhite, ease: "outQuad", duration: 0.3});
     });
     card.addEventListener("pointerleave", () => {
       gsap.to(arrow, {opacity: .5, ease: "outQuad", duration: 0.3});
       gsap.to(blob, {opacity: 0, ease: "outQuad", duration: 0.3});
-      gsap.to(content, {borderColor: colorTransparent, ease: "outQuad", duration: 0.3});
+      gsap.to(card, {borderColor: colorTransparent, ease: "outQuad", duration: 0.3});
     });
   });
 }
