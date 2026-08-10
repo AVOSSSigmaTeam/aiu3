@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.1";
+const version = "3.0.2";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -445,7 +445,7 @@ function loadPage() {
       display: "none",
     }, 1.25);
 
-  if (DEBUG) console.log("loadPage function ran");
+  // if (DEBUG) console.log("loadPage function ran");
 }
 
 function afterLoadHeroIntro(page) {
@@ -990,7 +990,7 @@ function initScrollIntoViewFirst(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          markers: DEBUG,
+          // markers: DEBUG,
         }
       });
     });
@@ -1488,6 +1488,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initFavicons();
+
+  if (DEBUG) console.log("Version: " + version);
 });
 
 Webflow.push(function () {$('#filter').submit(function () {return false;});});
