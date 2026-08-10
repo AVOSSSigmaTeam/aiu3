@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.8";
+const version = "3.0.9";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1001,9 +1001,31 @@ function initScrollIntoViewFirst(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          // markers: DEBUG,
+          markers: DEBUG,
         }
       });
+    });
+  });
+}
+
+function initFadeInOnScroll(page) {
+  page = page || document;
+  const targets = page.querySelectorAll('[data-fade-in-on-scroll]');
+  if (targets.length === 0) return;
+
+  targets.forEach(target => {
+    gsap.fromTo(target, {
+      opacity: 0,
+    }, {
+      opacity: 1,
+      delay: .5,
+      duration: 1,
+      ease: "outQuart",
+      scrollTrigger: {
+        trigger: target,
+        start: "top bottom",
+        // markers: DEBUG,
+      }
     });
   });
 }
@@ -1361,7 +1383,7 @@ function initGlowingLightsHeroSmall(page) {
 // sales page animations
 function initPricingGlowAnimation(page) {
   page = page || document;
-  gsap.matchMedia().add("(min-width: 992px)", () => {
+  if (window.innerWidth >= 992) {
     const sections = page.querySelectorAll('[data-pricing-with-glow]');
     if (sections.length === 0) return;
 
@@ -1384,24 +1406,14 @@ function initPricingGlowAnimation(page) {
         }
       })
     });
-  });
+  }
 }
 function initBottomBarAnimation(page) {
   page = page || document;
   const bar = page.querySelector('[data-bottom-bar]');
   if (!bar) return;
-
-  // if (window.innerWidth >= 992) {
-  //   // desktop
-  //   gsap.set(bar, { x: "-50%", y: "6.25rem", opacity: 0 });
-  //   gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
-  // }
-  // if (window.innerWidth <= 991) {
-    // mobile
-    gsap.set(bar, { y: "6.25rem", opacity: 0 });
-    gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
-  // }
-
+  gsap.set(bar, { y: "6.25rem", opacity: 0 });
+  gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
 }
 
 function initFavicons(page) {
