@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.4";
+const version = "3.0.5";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -428,62 +428,69 @@ const loader = document.querySelector('[data-loader]');
 
 function loadPage() {
 
+  let salesPageFlag = false;
   const videoGlow = document.querySelector('[data-video-glow]');
 
   const tl = gsap.timeline();
 
   gsap.matchMedia().add("(min-width: 992px)", () => {
 
-    if (videoGlow) { //sales page load
-
-      gsap.set(videoGlow, {
-        scale: .66,
-      })
-
-      tl
-        .to(loader, {
-          autoAlpha: 0,
-          duration: .3,
-          ease: "outQuad",
-        }, 0.5)
-        .to(loaderContainer, {
-          autoAlpha: 0,
-          duration: .3,
-          ease: "outQuad",
-        }, 0.8)
-        .to(videoGlow, {
-          scale: 1,
-          duration: .35,
-          ease: "easeOut",
-        }, 1)
-        .set(loaderContainer, {
-          display: "none",
-        }, 1.25);
-
-        if (DEBUG) console.log("Sales Page loaded");
-        return;
-
-    } 
+    if (videoGlow) {
+      salesPageFlag = true;
+    }
 
   });
 
-  tl
-    .to(loader, {
-      autoAlpha: 0,
-      duration: .25,
-      ease: "outQuad",
-    }, 0.5)
-    .to(loaderContainer, {
-      autoAlpha: 0,
-      duration: .5,
-      ease: "outQuad",
-    }, 0.75)
-    .set(loaderContainer, {
-      display: "none",
-    }, 1.25);
+  
+  if (videoGlow && salesPageFlag) { //sales page load
 
+    gsap.set(videoGlow, {
+      scale: .66,
+    })
 
-  if (DEBUG) console.log("Page loaded");
+    tl
+      .to(loader, {
+        autoAlpha: 0,
+        duration: .3,
+        ease: "outQuad",
+      }, 0.5)
+      .to(loaderContainer, {
+        autoAlpha: 0,
+        duration: .3,
+        ease: "outQuad",
+      }, 0.8)
+      .to(videoGlow, {
+        scale: 1,
+        duration: .35,
+        ease: "easeOut",
+      }, 1)
+      .set(loaderContainer, {
+        display: "none",
+      }, 1.25);
+
+    if (DEBUG) console.log("Sales Page loaded");
+
+  } else {
+
+    tl
+      .to(loader, {
+        autoAlpha: 0,
+        duration: .25,
+        ease: "outQuad",
+      }, 0.5)
+      .to(loaderContainer, {
+        autoAlpha: 0,
+        duration: .5,
+        ease: "outQuad",
+      }, 0.75)
+      .set(loaderContainer, {
+        display: "none",
+      }, 1.25);
+
+    if (DEBUG) console.log("Page loaded");
+
+  }
+
 }
 
 function afterLoadHeroIntro(page) {
