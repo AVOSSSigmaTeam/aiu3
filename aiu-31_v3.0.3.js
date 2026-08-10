@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.2";
-const DEBUG = true; //return to false on prod
+const version = "3.0.3";
+const DEBUG = false; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -427,7 +427,29 @@ const loaderContainer = document.querySelector('[data-loader-container]');
 const loader = document.querySelector('[data-loader]');
 
 function loadPage() {
+
+  // const videoGlow = document.querySelector('[data-video-glow]');
+
   const tl = gsap.timeline();
+
+  // if (videoGlow) { //sales page load
+
+  //   tl
+  //     .to(loader, {
+  //       autoAlpha: 0,
+  //       duration: .25,
+  //     }, 0.5)
+  //     .to(loaderContainer, {
+  //       autoAlpha: 0,
+  //       duration: .5
+  //     }, 0.75)
+  //     .set(loaderContainer, {
+  //       display: "none",
+  //     }, 1.25);
+
+  // } else {
+
+  // }
   tl
     .to(loader, {
       autoAlpha: 0,
@@ -437,13 +459,10 @@ function loadPage() {
       autoAlpha: 0,
       duration: .5
     }, 0.75)
-    // .to(main, {
-    //   autoAlpha: 1,
-    //   duration: .25,
-    // }, 0.75)
     .set(loaderContainer, {
       display: "none",
     }, 1.25);
+
 
   // if (DEBUG) console.log("loadPage function ran");
 }
@@ -653,138 +672,98 @@ function handleMobileNavLinkClicks(page) {
 
 }
 
-function initNavigationMenuExpandAnimation(page) {
-  page = page || document;
+// function initNavigationMenuExpandAnimation(page) {
+//   page = page || document;
 
-  const nav = page.querySelector('[data-navigation]');
-  const dropdownList = page.querySelector('[data-dropdown-list]');
-  const background = page.querySelector('[data-nav-background]');
-  const dropLink = page.querySelector('[data-dropdown-link]');
-  const dropHelper = page.querySelector('[data-animate-drop]');
+//   const nav = page.querySelector('[data-navigation]');
+//   const dropdownList = page.querySelector('[data-dropdown-list]');
+//   const background = page.querySelector('[data-nav-background]');
+//   const dropLink = page.querySelector('[data-dropdown-link]');
+//   const dropHelper = page.querySelector('[data-animate-drop]');
 
-  if (!nav || !dropdownList || !background || !dropLink || !dropHelper) return;
+//   if (!nav || !dropdownList || !background || !dropLink || !dropHelper) return;
 
-  const navExapandTimeline = gsap.timeline();
+//   const navExapandTimeline = gsap.timeline();
 
-  navExapandTimeline
-    .fromTo(nav, {
-      width: "58rem"
-    }, {
-      width: "112.5rem",
-      duration: 0.6,
-      ease: "power1.inOut"
-    }, 0)
-    .fromTo(nav, {
-      height: "2.8125rem",
-    }, {
-      height: "27.1875rem",
-      duration: 0.6,
-      ease: "power1.inOut"
-    }, 0)
-    .fromTo(background, {
-      opacity: 0
-    }, {
-      opacity: 1,
-      duration: 0.5,
-      ease: "power1.out"
-    }, 0)
-    .fromTo(dropdownList, {
-      opacity: 0
-    }, {
-      opacity: 1,
-      duration: 0.45,
-      ease: "power1.inOut"
-    }, 0.4);
+//   navExapandTimeline
+//     .fromTo(nav, {
+//       width: "58rem"
+//     }, {
+//       width: "112.5rem",
+//       duration: 0.6,
+//       ease: "power1.inOut"
+//     }, 0)
+//     .fromTo(nav, {
+//       height: "2.8125rem",
+//     }, {
+//       height: "27.1875rem",
+//       duration: 0.6,
+//       ease: "power1.inOut"
+//     }, 0)
+//     .fromTo(background, {
+//       opacity: 0
+//     }, {
+//       opacity: 1,
+//       duration: 0.5,
+//       ease: "power1.out"
+//     }, 0)
+//     .fromTo(dropdownList, {
+//       opacity: 0
+//     }, {
+//       opacity: 1,
+//       duration: 0.45,
+//       ease: "power1.inOut"
+//     }, 0.4);
 
-  navExapandTimeline.pause();
+//   navExapandTimeline.pause();
 
-  dropLink.addEventListener("mouseenter", () => {
-    navExapandTimeline.play();
-  });
+//   dropLink.addEventListener("mouseenter", () => {
+//     navExapandTimeline.play();
+//   });
 
-  dropHelper.addEventListener("mouseleave", () => {
-    navExapandTimeline.reverse();
-  });
+//   dropHelper.addEventListener("mouseleave", () => {
+//     navExapandTimeline.reverse();
+//   });
 
-}
+// }
 
-function initNavTooltips() {
-  const nav = document.querySelector('[data-navigation]');
-  if (!nav) return;
+// function initNavTooltips() {
+//   const nav = document.querySelector('[data-navigation]');
+//   if (!nav) return;
 
-  const tooltipElements = nav.querySelectorAll('[data-css-tooltip-hover]');
-  let timeoutId = null;
+//   const tooltipElements = nav.querySelectorAll('[data-css-tooltip-hover]');
+//   let timeoutId = null;
 
-  window.addEventListener('resize', () => {
-    if (isMobileOrTablet()) {
-      nav.style.overflow = 'visible';
-    } else {
-      nav.style.overflow = 'clip';
-    }
-  });
+//   window.addEventListener('resize', () => {
+//     if (isMobileOrTablet()) {
+//       nav.style.overflow = 'visible';
+//     } else {
+//       nav.style.overflow = 'clip';
+//     }
+//   });
 
-  tooltipElements.forEach((element) => {
-    element.addEventListener('mouseenter', () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
-      }
-      nav.style.overflow = 'visible';
-    });
+//   tooltipElements.forEach((element) => {
+//     element.addEventListener('mouseenter', () => {
+//       if (timeoutId) {
+//         clearTimeout(timeoutId);
+//         timeoutId = null;
+//       }
+//       nav.style.overflow = 'visible';
+//     });
 
-    element.addEventListener('mouseleave', () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+//     element.addEventListener('mouseleave', () => {
+//       if (timeoutId) {
+//         clearTimeout(timeoutId);
+//       }
 
-      timeoutId = setTimeout(() => {
-        nav.style.overflow = 'clip';
-        timeoutId = null;
-      }, 400);
-    });
-  });
-}
+//       timeoutId = setTimeout(() => {
+//         nav.style.overflow = 'clip';
+//         timeoutId = null;
+//       }, 400);
+//     });
+//   });
+// }
 
-
-// let firstLoadButtonAnimationFlag = true;
-function initButtonHoverAnimation(page) {
-  page = page || document;
-  // if (firstLoadButtonAnimationFlag) {
-  //   page = document;
-  //   firstLoadButtonAnimationFlag = false;
-  // }
-
-  if (isMobileOrTablet() || !canHover()) return;
-
-  const buttons = page.querySelectorAll('[data-animate-button]');
-  if (buttons.length === 0) return;
-
-  buttons.forEach(button => {
-    const buttonTextElements = button.querySelectorAll('[data-button-text]');
-    if (buttonTextElements.length === 0) return;
-
-    button.addEventListener("pointerenter", () => {
-      gsap.to(buttonTextElements, {
-        yPercent: -100,
-        duration: 0.2,
-        ease: "easeOut",
-        overwrite: true
-      });
-    });
-
-    button.addEventListener("pointerleave", () => {
-      gsap.to(buttonTextElements, {
-        yPercent: 0,
-        duration: 0.2,
-        ease: "easeOut",
-        overwrite: true
-      });
-    });
-
-  });
-
-  // if (DEBUG) console.log("Button animation initialized for: " + buttons.length);
-}
 
 function formatDates(page) {
   page = page || document;
@@ -1440,7 +1419,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // initNavTooltips();
   // initNavigationMenuExpandAnimation();
 
-  // if (has('[data-animate-button]')) initButtonHoverAnimation();
 
   if (has('[data-format-date]')) formatDates();
   if (has('[data-format-number]')) formatNumbers();
@@ -1453,7 +1431,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-tabs-wrap]')) initHelpCenter();
 
   if (has('[data-counter]')) initCounters();
-  initPageBlurAnimation();
 
   if (has('[data-newsletter-form]')) initNewsletterFormSubmitButton();
 
@@ -1487,6 +1464,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPage();
   }
 
+  initPageBlurAnimation();
   initFavicons();
 
   if (DEBUG) console.log("Version: " + version);
