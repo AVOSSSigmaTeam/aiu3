@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
 const version = "3.0.5";
-const DEBUG = true; //return to false on prod
+const DEBUG = false; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -470,7 +470,7 @@ function loadPage() {
 
     if (DEBUG) console.log("Sales Page loaded");
 
-  } else {
+  } else { //regular page load
 
     tl
       .to(loader, {
