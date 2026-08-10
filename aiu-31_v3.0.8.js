@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.7";
+const version = "3.0.8";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1391,16 +1391,16 @@ function initBottomBarAnimation(page) {
   const bar = page.querySelector('[data-bottom-bar]');
   if (!bar) return;
 
-  if (window.innerWidth >= 992) {
-    // desktop
-    gsap.set(bar, { x: "-50%", y: "6.25rem", opacity: 0 });
-    gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
-  }
-  if (window.innerWidth <= 991) {
+  // if (window.innerWidth >= 992) {
+  //   // desktop
+  //   gsap.set(bar, { x: "-50%", y: "6.25rem", opacity: 0 });
+  //   gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
+  // }
+  // if (window.innerWidth <= 991) {
     // mobile
     gsap.set(bar, { y: "6.25rem", opacity: 0 });
     gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
-  }
+  // }
 
 }
 
