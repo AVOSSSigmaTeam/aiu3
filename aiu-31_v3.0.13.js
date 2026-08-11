@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.12";
+const version = "3.0.13";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1001,7 +1001,7 @@ function initScrollIntoViewFirst(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          // markers: DEBUG,
+          markers: DEBUG,
         }
       });
     });
@@ -1026,7 +1026,7 @@ function initScrollIntoViewSecond(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          // markers: DEBUG,
+          markers: DEBUG,
         }
       });
     });
@@ -1050,7 +1050,7 @@ function initFadeInOnScroll(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          // markers: DEBUG,
+          markers: DEBUG,
         }
       });
     });
