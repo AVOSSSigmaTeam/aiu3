@@ -1129,18 +1129,18 @@ function initAffiliateStepsAnimation(page) {
     gsap.set(stepRight, {
         opacity: .25,
       });
-    gsap..set(stepLeft, {
+    gsap.set(stepLeft, {
         opacity: .25,
       });
-    gsap..set(blobA, {
+    gsap.set(blobA, {
         opacity: 0,
         scale: .7,
       });
-    gsap..set(blobB, {
+    gsap.set(blobB, {
         opacity: 0,
         scale: .7,
       });
-    gsap..set(stepIconBox, {
+    gsap.set(stepIconBox, {
         backgroundColor: "#00000000"
       });
 
