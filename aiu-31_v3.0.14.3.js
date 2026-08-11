@@ -1133,7 +1133,7 @@ function initAffiliateStepsAnimation(page) {
         end: "top top",
         scrub: true,
         markers: DEBUG,
-      };      
+      },
     });
 
     tl.to(stepRight, {
