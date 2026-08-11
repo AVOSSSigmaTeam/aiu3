@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.13";
+const version = "3.0.14";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1001,7 +1001,7 @@ function initScrollIntoViewFirst(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          markers: DEBUG,
+          // markers: DEBUG,
         }
       });
     });
@@ -1026,13 +1026,12 @@ function initScrollIntoViewSecond(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          markers: DEBUG,
+          // markers: DEBUG,
         }
       });
     });
   });
 }
-
 function initFadeInOnScroll(page) {
   page = page || document;
   gsap.matchMedia().add("(min-width: 992px)", () => {
@@ -1050,7 +1049,7 @@ function initFadeInOnScroll(page) {
         scrollTrigger: {
           trigger: target,
           start: "top bottom",
-          markers: DEBUG,
+          // markers: DEBUG,
         }
       });
     });
@@ -1075,7 +1074,6 @@ function initLogoScroller(page) {
       });
   });
 }
-
 function initYTScroller(page) {
   page = page || document;
   const scrollers = page.querySelectorAll("[data-animate-scroller]");
@@ -1094,7 +1092,6 @@ function initYTScroller(page) {
       });
   });
 }
-
 function initTestimonialScrollers(page) {
   page = page || document;
   const scrollers = page.querySelectorAll("[data-testimonial-scroller]");
@@ -1113,6 +1110,70 @@ function initTestimonialScrollers(page) {
         duration: 25,
         ease: "none"
       });
+  });
+}
+
+function initAffiliateStepsAnimation(page) {
+  page = page || document;
+  const steps = page.querySelectorAll('[data-affiliate-step]');
+  if (steps.length === 0) return;
+
+  steps.forEach(step => {
+    const stepRight = step.querySelector('[data-step-right]');
+    const stepLeft = step.querySelector('[data-step-left]');
+    const stepIconBox = step.querySelector('[data-step-icon-box]');
+    const blobA = step.querySelector('[data-step-blob="a"]');
+    const blobB = step.querySelector('[data-step-blob="b"]');
+
+    const tl = gsap.timeline({
+      duration: 100,
+      scrollTrigger: {
+        trigger: step,
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+        markers: DEBUG,
+      };
+
+      tl.to(stepRight, {
+          opacity: .25,
+        }, 55)
+        .to(stepLeft, {
+          opacity: .25,
+        }, 55)
+        .to(blobA, {
+          opacity: 0,
+          scale: .7,
+        }, 55)
+        .to(blobB, {
+          opacity: 0,
+          scale: .7,
+        }, 55)
+        .to(stepIconBox, {
+          backgroundColor: "#00000000"
+        });
+
+      tl.to(stepIconBox, {
+        backgroundColor: "#063315ff",
+      }, 58);
+
+      tl.to(stepRight, {
+          opacity: 1,
+        }, 62)
+        .to(stepLeft, {
+          opacity: 1,
+        }, 62)
+        .to(blobA, {
+          opacity: 1,
+          scale: 1,
+        }, 62);
+
+      tl.to(blobB, {
+        opacity: 1,
+        scale: 1,
+      }, 68);
+      
+    });
   });
 }
 
@@ -1163,27 +1224,6 @@ function initServiceIconBoxHoverAnimation(page) {
   });
 }
 
-// function initCreatorCardHoverAnimation(page) {
-//   page = page || document;
-//   if (!isDesktopLikeDevice) return;
-
-//   const allCards = page.querySelectorAll('[data-creator-card]');
-//   if (allCards.length === 0) return;
-
-//   allCards.forEach(card => {
-//     const image = card.querySelector('[data-creator-card-image]');
-//     const arrow = card.querySelector('[data-creator-card-arrow]');
-
-//     card.addEventListener("pointerenter", () => {
-//       gsap.to(image, {opacity: .66, ease: "outQuad", duration: 0.3});
-//       gsap.to(arrow, {opacity: 1, ease: "outQuad", duration: 0.3});
-//     });
-//     card.addEventListener("pointerleave", () => {
-//       gsap.to(image, {opacity: 1, ease: "outQuad", duration: 0.3});
-//       gsap.to(arrow, {opacity: .5, ease: "outQuad", duration: 0.3});
-//     });
-//   });
-// }
 function initCreatorCardHoverAnimation(page) {
   page = page || document;
 
@@ -1594,6 +1634,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-edu-card]')) initEducationCardHoverAnimation();
   if (has('[data-blog-card]')) initBlogCardHoverAnimation();
   if (has('[data-event-card]')) initEventCardHoverAnimation();
+
+  if (has('[data-affiliate-step]')) initAffiliateStepsAnimation();
 
   if (has('[data-service-icon-box]')) initServiceIconBoxHoverAnimation();
   if (has('[data-pricing-with-glow]')) initPricingGlowAnimation();
