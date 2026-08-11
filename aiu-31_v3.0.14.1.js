@@ -1133,47 +1133,46 @@ function initAffiliateStepsAnimation(page) {
         end: "top top",
         scrub: true,
         markers: DEBUG,
-      };
+      };      
+    });
 
-      tl.to(stepRight, {
-          opacity: .25,
-        }, 55)
-        .to(stepLeft, {
-          opacity: .25,
-        }, 55)
-        .to(blobA, {
-          opacity: 0,
-          scale: .7,
-        }, 55)
-        .to(blobB, {
-          opacity: 0,
-          scale: .7,
-        }, 55)
-        .to(stepIconBox, {
-          backgroundColor: "#00000000"
-        });
+    tl.to(stepRight, {
+        opacity: .25,
+      }, 55)
+      .to(stepLeft, {
+        opacity: .25,
+      }, 55)
+      .to(blobA, {
+        opacity: 0,
+        scale: .7,
+      }, 55)
+      .to(blobB, {
+        opacity: 0,
+        scale: .7,
+      }, 55)
+      .to(stepIconBox, {
+        backgroundColor: "#00000000"
+      });
 
-      tl.to(stepIconBox, {
-        backgroundColor: "#063315ff",
-      }, 58);
+    tl.to(stepIconBox, {
+      backgroundColor: "#063315ff",
+    }, 58);
 
-      tl.to(stepRight, {
-          opacity: 1,
-        }, 62)
-        .to(stepLeft, {
-          opacity: 1,
-        }, 62)
-        .to(blobA, {
-          opacity: 1,
-          scale: 1,
-        }, 62);
-
-      tl.to(blobB, {
+    tl.to(stepRight, {
+        opacity: 1,
+      }, 62)
+      .to(stepLeft, {
+        opacity: 1,
+      }, 62)
+      .to(blobA, {
         opacity: 1,
         scale: 1,
-      }, 68);
-      
-    });
+      }, 62);
+
+    tl.to(blobB, {
+      opacity: 1,
+      scale: 1,
+    }, 68);
   });
 }
 
