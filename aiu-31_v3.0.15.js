@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.14";
+const version = "3.0.15";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -1125,6 +1125,25 @@ function initAffiliateStepsAnimation(page) {
     const blobA = step.querySelector('[data-step-blob="a"]');
     const blobB = step.querySelector('[data-step-blob="b"]');
 
+    
+    gsap.set(stepRight, {
+        opacity: .25,
+      })
+      .set(stepLeft, {
+        opacity: .25,
+      })
+      .set(blobA, {
+        opacity: 0,
+        scale: .7,
+      })
+      .set(blobB, {
+        opacity: 0,
+        scale: .7,
+      })
+      .set(stepIconBox, {
+        backgroundColor: "#00000000"
+      });
+
     const tl = gsap.timeline({
       duration: 100,
       scrollTrigger: {
@@ -1136,43 +1155,46 @@ function initAffiliateStepsAnimation(page) {
       },
     });
 
-    tl.to(stepRight, {
+    tl.fromTo(stepRight, {
         opacity: .25,
-      }, 55)
-      .to(stepLeft, {
+      }, {
+        opacity: 1,
+        duration: 7,
+      }, 55);
+
+    tl.fromTo(stepLeft, {
         opacity: .25,
-      }, 55)
-      .to(blobA, {
+      }, {
+        opacity: 1,
+        duration: 7,
+      }, 55);
+
+    tl.fromTo(blobA, {
         opacity: 0,
         scale: .7,
-      }, 55)
-      .to(blobB, {
-        opacity: 0,
-        scale: .7,
-      }, 55)
-      .to(stepIconBox, {
-        backgroundColor: "#00000000"
-      });
-
-    tl.to(stepIconBox, {
-      backgroundColor: "#063315ff",
-    }, 58);
-
-    tl.to(stepRight, {
-        opacity: 1,
-      }, 62)
-      .to(stepLeft, {
-        opacity: 1,
-      }, 62)
-      .to(blobA, {
+      }, {
         opacity: 1,
         scale: 1,
-      }, 62);
+        duration: 7
+      }, 55);
 
-    tl.to(blobB, {
-      opacity: 1,
-      scale: 1,
-    }, 68);
+    tl.fromTo(blobB, {
+        opacity: 0,
+        scale: .7,
+      }, {
+        opacity: 1,
+        scale: 1,
+        duration: 13
+      }, 55);
+
+    tl.fromTo(stepIconBox,, {
+        backgroundColor: "#00000000"
+      }, {
+        backgroundColor: "#063315ff",
+        ease: "linear",
+        duration: 3
+      }, 55);
+
   });
 }
 
