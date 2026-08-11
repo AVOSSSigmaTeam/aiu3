@@ -1187,7 +1187,7 @@ function initAffiliateStepsAnimation(page) {
         duration: 13
       }, 55);
 
-    tl.fromTo(stepIconBox,, {
+    tl.fromTo(stepIconBox, {
         backgroundColor: "#00000000"
       }, {
         backgroundColor: "#063315ff",
