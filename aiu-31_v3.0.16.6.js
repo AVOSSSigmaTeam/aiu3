@@ -1130,7 +1130,7 @@ function initAffiliateStepsAnimation(page) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: step,
-        start: 'top center',
+        start: 'top bottom',
         end: 'top top',
         scrub: true,
         markers: DEBUG,
