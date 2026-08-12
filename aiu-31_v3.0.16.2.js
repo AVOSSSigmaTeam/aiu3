@@ -1112,9 +1112,11 @@ function initTestimonialScrollers(page) {
       });
   });
 }
-
 function initAffiliateStepsAnimation(page) {
   page = page || document;
+
+  gsap.registerPlugin(ScrollTrigger);
+
   const steps = page.querySelectorAll('[data-affiliate-step]');
   if (steps.length === 0) return;
 
@@ -1125,83 +1127,138 @@ function initAffiliateStepsAnimation(page) {
     const blobA = step.querySelector('[data-step-blob="a"]');
     const blobB = step.querySelector('[data-step-blob="b"]');
 
-    
-    gsap.set(stepRight, {
-        opacity: .25,
-      });
-    gsap.set(stepLeft, {
-        opacity: .25,
-      });
-    gsap.set(blobA, {
-        opacity: 0,
-        scale: .7,
-      });
-    gsap.set(blobB, {
-        opacity: 0,
-        scale: .7,
-      });
-    gsap.set(stepIconBox, {
-        backgroundColor: "#00000000"
-      });
-
     const tl = gsap.timeline({
-      // duration: 100,
       scrollTrigger: {
-        // trigger: step,
-        clamp: !0,
-        start: "top bottom",
-        end: "top top",
-        scrub: .8,
-        enter: "play",
-        leave: "none",
-        enterBack: "none",
-        leaveBack: "none",
-        markers: DEBUG,
+        trigger: step,
+        start: 'top bottom',
+        end: 'top top',
+        scrub: true
       },
+      defaults: {
+        ease: 'none'
+      }
     });
 
-    tl.fromTo(stepRight, {
-        opacity: .25,
-      }, {
-        opacity: 1,
-        duration: .7,
-      }, .55);
+    tl.fromTo(
+      [stepRight, stepLeft],
+      { opacity: 0.25 },
+      { opacity: 1, duration: 7 },
+      55
+    );
 
-    tl.fromTo(stepLeft, {
-        opacity: .25,
-      }, {
-        opacity: 1,
-        duration: .7,
-      }, .55);
+    tl.fromTo(
+      stepIconBox,
+      { backgroundColor: '#00000000' },
+      { backgroundColor: '#063315ff', duration: 3 },
+      55
+    );
 
-    tl.fromTo(blobA, {
-        opacity: 0,
-        scale: .7,
-      }, {
-        opacity: 1,
-        scale: 1,
-        duration: .7
-      }, .55);
+    tl.fromTo(
+      blobA,
+      { opacity: 0, scale: 0.7 },
+      { opacity: 1, scale: 1, duration: 7 },
+      55
+    );
 
-    tl.fromTo(blobB, {
-        opacity: 0,
-        scale: .7,
-      }, {
-        opacity: 1,
-        scale: 1,
-        duration: .7
-      }, .55);
+    tl.fromTo(
+      blobB,
+      { opacity: 0, scale: 0.7 },
+      { opacity: 1, scale: 1, duration: 13 },
+      55
+    );
 
-    tl.fromTo(stepIconBox, {
-        backgroundColor: "#00000000"
-      }, {
-        backgroundColor: "#063315ff",
-        ease: "linear",
-        duration: .7
-      }, .55);
-
+    tl.duration(100);
   });
 }
+// function initAffiliateStepsAnimation(page) {
+//   page = page || document;
+//   const steps = page.querySelectorAll('[data-affiliate-step]');
+//   if (steps.length === 0) return;
+
+//   steps.forEach(step => {
+//     const stepRight = step.querySelector('[data-step-right]');
+//     const stepLeft = step.querySelector('[data-step-left]');
+//     const stepIconBox = step.querySelector('[data-step-icon-box]');
+//     const blobA = step.querySelector('[data-step-blob="a"]');
+//     const blobB = step.querySelector('[data-step-blob="b"]');
+
+    
+//     gsap.set(stepRight, {
+//         opacity: .25,
+//       });
+//     gsap.set(stepLeft, {
+//         opacity: .25,
+//       });
+//     gsap.set(blobA, {
+//         opacity: 0,
+//         scale: .7,
+//       });
+//     gsap.set(blobB, {
+//         opacity: 0,
+//         scale: .7,
+//       });
+//     gsap.set(stepIconBox, {
+//         backgroundColor: "#00000000"
+//       });
+
+//     const tl = gsap.timeline({
+//       // duration: 100,
+//       scrollTrigger: {
+//         // trigger: step,
+//         clamp: !0,
+//         start: "top bottom",
+//         end: "top top",
+//         scrub: .8,
+//         enter: "play",
+//         leave: "none",
+//         enterBack: "none",
+//         leaveBack: "none",
+//         markers: DEBUG,
+//       },
+//     });
+
+//     tl.fromTo(stepRight, {
+//         opacity: .25,
+//       }, {
+//         opacity: 1,
+//         duration: .7,
+//       }, .55);
+
+//     tl.fromTo(stepLeft, {
+//         opacity: .25,
+//       }, {
+//         opacity: 1,
+//         duration: .7,
+//       }, .55);
+
+//     tl.fromTo(blobA, {
+//         opacity: 0,
+//         scale: .7,
+//       }, {
+//         opacity: 1,
+//         scale: 1,
+//         duration: .7
+//       }, .55);
+
+//     tl.fromTo(blobB, {
+//         opacity: 0,
+//         scale: .7,
+//       }, {
+//         opacity: 1,
+//         scale: 1,
+//         duration: .7
+//       }, .55);
+
+//     tl.fromTo(stepIconBox, {
+//         backgroundColor: "#00000000"
+//       }, {
+//         backgroundColor: "#063315ff",
+//         ease: "linear",
+//         duration: .7
+//       }, .55);
+
+//   });
+// }
 
 function initServiceIconBoxHoverAnimation(page) {
   page = page || document;
