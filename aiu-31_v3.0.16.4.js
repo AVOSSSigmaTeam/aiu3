@@ -1130,7 +1130,7 @@ function initAffiliateStepsAnimation(page) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: step,
-        start: 'top bottom',
+        start: 'top center',
         end: 'top top',
         scrub: true,
         markers: DEBUG,
@@ -1144,31 +1144,31 @@ function initAffiliateStepsAnimation(page) {
       [stepRight, stepLeft],
       { opacity: 0.25 },
       { opacity: 1, duration: 7 },
-      55
+      5
     );
 
     tl.fromTo(
       stepIconBox,
       { backgroundColor: '#00000000' },
       { backgroundColor: '#063315ff', duration: 3 },
-      55
+      5
     );
 
     tl.fromTo(
       blobA,
       { opacity: 0, scale: 0.7 },
       { opacity: 1, scale: 1, duration: 7 },
-      55
+      5
     );
 
     tl.fromTo(
       blobB,
       { opacity: 0, scale: 0.7 },
       { opacity: 1, scale: 1, duration: 13 },
-      55
+      5
     );
 
-    tl.duration(100);
+    tl.duration(50);
   });
 }
 // function initAffiliateStepsAnimation(page) {
