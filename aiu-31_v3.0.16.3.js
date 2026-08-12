@@ -1132,7 +1132,8 @@ function initAffiliateStepsAnimation(page) {
         trigger: step,
         start: 'top bottom',
         end: 'top top',
-        scrub: true
+        scrub: true,
+        markers: DEBUG,
       },
       defaults: {
         ease: 'none'
