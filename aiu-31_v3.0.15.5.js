@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
 const version = "3.0.15";
-const DEBUG = true; //return to false on prod
+const DEBUG = false; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -1113,90 +1113,90 @@ function initTestimonialScrollers(page) {
   });
 }
 
-function initAffiliateStepsAnimation(page) {
-  page = page || document;
-  const steps = page.querySelectorAll('[data-affiliate-step]');
-  if (steps.length === 0) return;
+// function initAffiliateStepsAnimation(page) {
+//   page = page || document;
+//   const steps = page.querySelectorAll('[data-affiliate-step]');
+//   if (steps.length === 0) return;
 
-  steps.forEach(step => {
-    const stepRight = step.querySelector('[data-step-right]');
-    const stepLeft = step.querySelector('[data-step-left]');
-    const stepIconBox = step.querySelector('[data-step-icon-box]');
-    const blobA = step.querySelector('[data-step-blob="a"]');
-    const blobB = step.querySelector('[data-step-blob="b"]');
+//   steps.forEach(step => {
+//     const stepRight = step.querySelector('[data-step-right]');
+//     const stepLeft = step.querySelector('[data-step-left]');
+//     const stepIconBox = step.querySelector('[data-step-icon-box]');
+//     const blobA = step.querySelector('[data-step-blob="a"]');
+//     const blobB = step.querySelector('[data-step-blob="b"]');
 
     
-    gsap.set(stepRight, {
-        opacity: .25,
-      });
-    gsap.set(stepLeft, {
-        opacity: .25,
-      });
-    gsap.set(blobA, {
-        opacity: 0,
-        scale: .7,
-      });
-    gsap.set(blobB, {
-        opacity: 0,
-        scale: .7,
-      });
-    gsap.set(stepIconBox, {
-        backgroundColor: "#00000000"
-      });
+//     gsap.set(stepRight, {
+//         opacity: .25,
+//       });
+//     gsap.set(stepLeft, {
+//         opacity: .25,
+//       });
+//     gsap.set(blobA, {
+//         opacity: 0,
+//         scale: .7,
+//       });
+//     gsap.set(blobB, {
+//         opacity: 0,
+//         scale: .7,
+//       });
+//     gsap.set(stepIconBox, {
+//         backgroundColor: "#00000000"
+//       });
 
-    const tl = gsap.timeline({
-      duration: 100,
-      scrollTrigger: {
-        trigger: step,
-        start: "top bottom",
-        end: "top top",
-        scrub: true,
-        markers: DEBUG,
-      },
-    });
+//     const tl = gsap.timeline({
+//       duration: 100,
+//       scrollTrigger: {
+//         trigger: step,
+//         start: "top bottom",
+//         end: "top top",
+//         scrub: true,
+//         markers: DEBUG,
+//       },
+//     });
 
-    tl.fromTo(stepRight, {
-        opacity: .25,
-      }, {
-        opacity: 1,
-        duration: 7,
-      }, 55);
+//     tl.fromTo(stepRight, {
+//         opacity: .25,
+//       }, {
+//         opacity: 1,
+//         duration: 7,
+//       }, 55);
 
-    tl.fromTo(stepLeft, {
-        opacity: .25,
-      }, {
-        opacity: 1,
-        duration: 7,
-      }, 55);
+//     tl.fromTo(stepLeft, {
+//         opacity: .25,
+//       }, {
+//         opacity: 1,
+//         duration: 7,
+//       }, 55);
 
-    tl.fromTo(blobA, {
-        opacity: 0,
-        scale: .7,
-      }, {
-        opacity: 1,
-        scale: 1,
-        duration: 7
-      }, 55);
+//     tl.fromTo(blobA, {
+//         opacity: 0,
+//         scale: .7,
+//       }, {
+//         opacity: 1,
+//         scale: 1,
+//         duration: 7
+//       }, 55);
 
-    tl.fromTo(blobB, {
-        opacity: 0,
-        scale: .7,
-      }, {
-        opacity: 1,
-        scale: 1,
-        duration: 13
-      }, 55);
+//     tl.fromTo(blobB, {
+//         opacity: 0,
+//         scale: .7,
+//       }, {
+//         opacity: 1,
+//         scale: 1,
+//         duration: 13
+//       }, 55);
 
-    tl.fromTo(stepIconBox, {
-        backgroundColor: "#00000000"
-      }, {
-        backgroundColor: "#063315ff",
-        ease: "linear",
-        duration: 3
-      }, 55);
+//     tl.fromTo(stepIconBox, {
+//         backgroundColor: "#00000000"
+//       }, {
+//         backgroundColor: "#063315ff",
+//         ease: "linear",
+//         duration: 3
+//       }, 55);
 
-  });
-}
+//   });
+// }
 
 function initServiceIconBoxHoverAnimation(page) {
   page = page || document;
@@ -1656,7 +1656,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-blog-card]')) initBlogCardHoverAnimation();
   if (has('[data-event-card]')) initEventCardHoverAnimation();
 
-  if (has('[data-affiliate-step]')) initAffiliateStepsAnimation();
+  // if (has('[data-affiliate-step]')) initAffiliateStepsAnimation();
 
   if (has('[data-service-icon-box]')) initServiceIconBoxHoverAnimation();
   if (has('[data-pricing-with-glow]')) initPricingGlowAnimation();
