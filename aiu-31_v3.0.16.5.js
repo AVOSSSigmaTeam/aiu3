@@ -1168,7 +1168,7 @@ function initAffiliateStepsAnimation(page) {
       5
     );
 
-    tl.duration(50);
+    tl.duration(100);
   });
 }
 // function initAffiliateStepsAnimation(page) {
