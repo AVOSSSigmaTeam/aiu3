@@ -208,7 +208,21 @@ function initFAQ(page) {
       }, 0);
 
     // Set initial state
-    closeTimeline.restart();
+    
+    if (reducedMotion) {
+      gsap.set(answer, {
+        height: "0px",
+      });
+      gsap.set(faqIconBar, {
+        rotationZ: 90,
+      });
+      gsap.set(faqIcon, {
+        rotationZ: -180,
+      });
+      return;
+    } else {
+      closeTimeline.restart();
+    }
 
     function toggleFAQ() {
 
