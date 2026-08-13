@@ -219,7 +219,6 @@ function initFAQ(page) {
       gsap.set(faqIcon, {
         rotationZ: -180,
       });
-      return;
     } else {
       closeTimeline.restart();
     }
