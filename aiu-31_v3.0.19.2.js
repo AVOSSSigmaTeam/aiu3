@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
 const version = "3.0.19";
-const DEBUG = true; //return to false on prod
+const DEBUG = false; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -15,7 +15,7 @@ const rmMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
 let reducedMotion = rmMQ.matches;
 rmMQ.addEventListener?.("change", e => (reducedMotion = e.matches));
 rmMQ.addListener?.(e => (reducedMotion = e.matches));
-if (DEBUG) console.log("Reduced motion:", reducedMotion);
+// if (DEBUG) console.log("Reduced motion:", reducedMotion);
 
 const has = (s) => !!nextPage.querySelector(s);
 
@@ -425,8 +425,9 @@ function initCounters(page) {
   });
 }
 
-function initPageBlurAnimation() {
-  const bottomBlur = document.querySelector("[data-blur-bottom]");
+function initPageBlurAnimation(page) {
+  page = page || document;
+  const bottomBlur = page.querySelector("[data-blur-bottom]");
 
   if (!bottomBlur) return;
 
@@ -454,7 +455,7 @@ function initPageBlurAnimation() {
     "--blur-bottom": "3rem",
   });
 
-  const footer = document.querySelector("[data-footer]");
+  const footer = page.querySelector("[data-footer]");
 
   if (footer) {
     ScrollTrigger.create({
@@ -478,7 +479,8 @@ const main = document.querySelector('main');
 const loaderContainer = document.querySelector('[data-loader-container]');
 const loader = document.querySelector('[data-loader]');
 
-function loadPage() {
+function loadPage(page) {
+  page = page || document;
   if (reducedMotion) {
     gsap.set(loaderContainer, {
       display: "none",
@@ -487,7 +489,7 @@ function loadPage() {
   }
 
   let salesPageFlag = false;
-  const videoGlow = document.querySelector('[data-video-glow]');
+  const videoGlow = page.querySelector('[data-video-glow]');
 
   const tl = gsap.timeline();
 
@@ -1432,7 +1434,7 @@ function initEventOcupancyBarAnimation(page) {
       scrollTrigger: {
         trigger: bar,
         start: "top 80%",
-        markers: DEBUG,
+        // markers: DEBUG,
       }
     });
   });
@@ -1802,7 +1804,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPageBlurAnimation(); //scrolltrigger
   initFavicons();
 
-  if (DEBUG) console.log("Version: " + version);
+  // if (DEBUG) console.log("Version: " + version);
 });
 
 Webflow.push(function () {$('#filter').submit(function () {return false;});});
