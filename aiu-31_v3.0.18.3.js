@@ -382,7 +382,6 @@ function canHover() {
 
 function initCounters(page) {
   page = page || document;
-  if (reducedMotion) return;
   const targets = page.querySelectorAll('[data-counter]');
   if (targets.length === 0) return;
   const counterTrigger = page.querySelector('[data-counter-trigger]');
@@ -391,6 +390,12 @@ function initCounters(page) {
     const targetNumber = target.getAttribute("data-counter");
     const animationDuration = parseInt(target.getAttribute("data-animation-duration")) || 2;
     // if (DEBUG) console.log(target, targetNumber);
+
+    if (reducedMotion) {
+      target.innerHTML = targetNumber.numberFormat(0);
+      return;
+    }
+
     var e = {
       var: 0
     };
@@ -398,7 +403,7 @@ function initCounters(page) {
       var: targetNumber,
       onUpdate: function () {
         let t = e.var.numberFormat(0);
-        target.innerHTML = t
+        target.innerHTML = t;
       },
       ease: Linear.easeNone,
       scrollTrigger: {
@@ -592,6 +597,19 @@ function initPopup(index, page) {
   }
 
   const openPopup = () => {
+
+    if (reducedMotion) {
+      gsap.set(popup, {
+        top: "0vh",
+        height: "100vh",
+      });
+      gsap.set(popup, {
+        backdropFilter: 'blur(24px)',
+        opacity: 1,
+      });
+      return;
+    }
+
     const tl = gsap.timeline();
 
     tl.set(popup, {
@@ -609,6 +627,20 @@ function initPopup(index, page) {
 
   const closePopup = () => {
     player.pause();
+
+    
+    if (reducedMotion) {
+      gsap.set(popup, {
+        backdropFilter: 'blur(0px)',
+        opacity: 0,
+      });
+
+      gsap.set(popup, {
+        top: "500vh",
+        height: "0vh",
+      });
+      return;
+    }
 
     const tl = gsap.timeline();
 
