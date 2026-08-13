@@ -1428,7 +1428,7 @@ function initEventOcupancyBarAnimation(page) {
     }, {
       width: "100%",
       duration: 1,
-      ease: "outQuad",
+      ease: "smooth",
       scrollTrigger: {
         trigger: bar,
         start: "top 80%",
