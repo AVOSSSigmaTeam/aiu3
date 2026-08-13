@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.18";
+const version = "3.0.19";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -191,11 +191,6 @@ function initFAQ(page) {
       duration: faqAnimationDuration,
       ease: "power1.inOut"
     }, 0)
-      // .to(faqIconWrap, {
-      //   // backgroundColor: "blue",
-      //   duration: faqAnimationDuration,
-      //   ease: "power1.inOut"
-      // }, 0)
       .to(faqIconBar, {
         rotationZ: 90,
         duration: faqAnimationDuration,
@@ -1415,6 +1410,33 @@ function initEventCardHoverAnimation(page) {
     });
   });
 }
+function initEventOcupancyBarAnimation(page) {
+  page = page || document;
+  const allBars = page.querySelectorAll('[data-event-ocupancy-bar]');
+  if (allBars.length === 0) return;
+
+  if (reducedMotion) {
+    allBars.forEach(bar => {
+      bar.style.width = "100%";
+    });
+    return;
+  }
+
+  allBars.forEach(bar => {
+    gsap.fromTo(bar, {
+      width: "0%",
+    }, {
+      width: "100%",
+      duration: 1,
+      ease: "outQuad",
+      scrollTrigger: {
+        trigger: bar,
+        start: "top 80%",
+        markers: DEBUG,
+      }
+    });
+  });
+}
 
 function initEducationCardHoverAnimation(page) {
   page = page || document;
@@ -1755,6 +1777,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-edu-card]')) initEducationCardHoverAnimation();
   if (has('[data-blog-card]')) initBlogCardHoverAnimation();
   if (has('[data-event-card]')) initEventCardHoverAnimation();
+  if (has('[data-event-ocupancy-bar]')) initEventOcupancyBarAnimation(); //scrolltrigger
 
   if (has('[data-affiliate-step]')) initAffiliateStepsAnimation(); //scrolltrigger
 
