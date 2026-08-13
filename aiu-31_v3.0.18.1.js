@@ -15,6 +15,7 @@ const rmMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
 let reducedMotion = rmMQ.matches;
 rmMQ.addEventListener?.("change", e => (reducedMotion = e.matches));
 rmMQ.addListener?.(e => (reducedMotion = e.matches));
+if (DEBUG) console.log("Reduced motion:", reducedMotion);
 
 const has = (s) => !!nextPage.querySelector(s);
 
@@ -464,6 +465,12 @@ const loaderContainer = document.querySelector('[data-loader-container]');
 const loader = document.querySelector('[data-loader]');
 
 function loadPage() {
+  if (reducedMotion) {
+    gsap.set(loaderContainer, {
+      display: "none",
+    });
+    return;
+  }
 
   let salesPageFlag = false;
   const videoGlow = document.querySelector('[data-video-glow]');
@@ -505,7 +512,7 @@ function loadPage() {
         display: "none",
       }, 1.25);
 
-    if (DEBUG) console.log("Sales Page loaded");
+    // if (DEBUG) console.log("Sales Page loaded");
 
   } else { //regular page load
 
@@ -524,7 +531,7 @@ function loadPage() {
         display: "none",
       }, 1.25);
 
-    if (DEBUG) console.log("Page loaded");
+    // if (DEBUG) console.log("Page loaded");
 
   }
 
@@ -532,6 +539,8 @@ function loadPage() {
 
 function afterLoadHeroIntro(page) {
   page = page || document;
+  if (reducedMotion) return;
+
   const section = page.querySelector('[data-animate-section-after-load]');
   if (!section) return;
   const content = section.querySelector('[data-animate-section-content-after-load]');
@@ -544,6 +553,8 @@ function afterLoadHeroIntro(page) {
 
 function afterHeroIntro(page) {
   page = page || document;
+  if (reducedMotion) return;
+
   const section = page.querySelector('[data-animate-after-hero]');
   if (!section) return;
 
