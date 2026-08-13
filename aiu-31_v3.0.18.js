@@ -1,6 +1,6 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
-const version = "3.0.17";
+const version = "3.0.18";
 const DEBUG = true; //return to false on prod
 
 let lenis = null;
@@ -10,6 +10,11 @@ let onceFunctionsInitialized = false;
 
 const hasLenis = typeof window.Lenis !== "undefined";
 const hasScrollTrigger = typeof window.ScrollTrigger !== "undefined";
+
+const rmMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+let reducedMotion = rmMQ.matches;
+rmMQ.addEventListener?.("change", e => (reducedMotion = e.matches));
+rmMQ.addListener?.(e => (reducedMotion = e.matches));
 
 const has = (s) => !!nextPage.querySelector(s);
 
@@ -85,6 +90,7 @@ function initLenis() {
 
 function initHighlightText(page) {
   page = page || document;
+  if (reducedMotion) return;
   const splitHeadingTargets = page.querySelectorAll("[data-highlight-text]");
 
   splitHeadingTargets.forEach((heading) => {
@@ -156,11 +162,11 @@ function initFAQ(page) {
 
     const faqAnimationDuration = 0.25;
 
-    const tl = gsap.timeline({
+    const openTimeline = gsap.timeline({
       paused: true
     });
 
-    tl.to(answer, {
+    openTimeline.to(answer, {
       height: "auto",
       duration: faqAnimationDuration,
       ease: "power1.inOut"
@@ -183,11 +189,11 @@ function initFAQ(page) {
       duration: faqAnimationDuration,
       ease: "power1.inOut"
     }, 0)
-      .to(faqIconWrap, {
-        // backgroundColor: "blue",
-        duration: faqAnimationDuration,
-        ease: "power1.inOut"
-      }, 0)
+      // .to(faqIconWrap, {
+      //   // backgroundColor: "blue",
+      //   duration: faqAnimationDuration,
+      //   ease: "power1.inOut"
+      // }, 0)
       .to(faqIconBar, {
         rotationZ: 90,
         duration: faqAnimationDuration,
@@ -208,7 +214,19 @@ function initFAQ(page) {
 
       if (isOpen) {
 
-        tl.reverse();
+        if (reducedMotion) {
+          gsap.set(answer, {
+            height: "0px",
+          });
+          gsap.set(faqIconBar, {
+            rotationZ: 90,
+          });
+          gsap.set(faqIcon, {
+            rotationZ: -180,
+          });
+        } else {
+          openTimeline.reverse();
+        }
 
         item.setAttribute("data-faq-open", "false");
         item.setAttribute("aria-expanded", "false");
@@ -217,7 +235,19 @@ function initFAQ(page) {
 
       } else {
 
-        tl.restart();
+        if (reducedMotion) {
+          gsap.set(answer, {
+            height: "auto",
+          });
+          gsap.set(faqIconBar, {
+            rotationZ: 0,
+          });
+          gsap.set(faqIcon, {
+            rotationZ: 180,
+          });
+        } else {
+          openTimeline.restart();
+        }
 
         item.setAttribute("data-faq-open", "true");
         item.setAttribute("aria-expanded", "true");
@@ -348,10 +378,12 @@ function canHover() {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }
 
-function initCounters() {
-  const targets = document.querySelectorAll('[data-counter]');
+function initCounters(page) {
+  page = page || document;
+  if (reducedMotion) return;
+  const targets = page.querySelectorAll('[data-counter]');
   if (targets.length === 0) return;
-  const counterTrigger = document.querySelector('[data-counter-trigger]');
+  const counterTrigger = page.querySelector('[data-counter-trigger]');
 
   targets.forEach((target) => {
     const targetNumber = target.getAttribute("data-counter");
@@ -382,6 +414,11 @@ function initPageBlurAnimation() {
   const bottomBlur = document.querySelector("[data-blur-bottom]");
 
   if (!bottomBlur) return;
+
+  if (reducedMotion) {
+    bottomBlur.remove();
+    return;
+  }
 
   const state = {
     footerProgress: 0,
@@ -984,6 +1021,8 @@ function initNewsletterFormSubmitButton(page) {
 
 function initScrollIntoViewFirst(page) {
   page = page || document;
+  if (reducedMotion) return;
+
   gsap.matchMedia().add("(min-width: 992px)", () => {
     const targets = page.querySelectorAll("[data-scroll-into-view-first]");
     if (targets.length === 0) return;
@@ -1009,6 +1048,8 @@ function initScrollIntoViewFirst(page) {
 }
 function initScrollIntoViewSecond(page) {
   page = page || document;
+  if (reducedMotion) return;
+  
   gsap.matchMedia().add("(min-width: 992px)", () => {
     const targets = page.querySelectorAll("[data-scroll-into-view-second]");
     if (targets.length === 0) return;
@@ -1034,6 +1075,8 @@ function initScrollIntoViewSecond(page) {
 }
 function initFadeInOnScroll(page) {
   page = page || document;
+  if (reducedMotion) return;
+
   gsap.matchMedia().add("(min-width: 992px)", () => {
     const targets = page.querySelectorAll('[data-fade-in-on-scroll]');
     if (targets.length === 0) return;
@@ -1174,6 +1217,7 @@ function initAffiliateStepsAnimation(page) {
 
 function initServiceIconBoxHoverAnimation(page) {
   page = page || document;
+  if (reducedMotion) return;
 
   gsap.matchMedia().add("(min-width: 992px)", () => {
 
@@ -1221,6 +1265,7 @@ function initServiceIconBoxHoverAnimation(page) {
 
 function initCreatorCardHoverAnimation(page) {
   page = page || document;
+  if (reducedMotion) return;
 
   page.addEventListener('mouseover', (event) => {
 
@@ -1260,6 +1305,7 @@ function initCreatorCardHoverAnimation(page) {
 
 function initBlogCardHoverAnimation(page) {
   page = page || document;
+  if (reducedMotion) return;
   if (!isDesktopLikeDevice) return;
 
   const allCards = page.querySelectorAll('[data-blog-card]');
@@ -1287,6 +1333,7 @@ function initBlogCardHoverAnimation(page) {
 
 function initEventCardHoverAnimation(page) {
   page = page || document;
+  if (reducedMotion) return;
   if (!isDesktopLikeDevice) return;
 
   const allCards = page.querySelectorAll('[data-event-card]');
@@ -1314,6 +1361,7 @@ function initEventCardHoverAnimation(page) {
 
 function initEducationCardHoverAnimation(page) {
   page = page || document;
+  if (reducedMotion) return;
   if (!isDesktopLikeDevice) return;
 
   const allCards = page.querySelectorAll('[data-edu-card]');
@@ -1342,6 +1390,8 @@ function initEducationCardHoverAnimation(page) {
 
 function initGlowingLightsHeroSmall(page) {
   page = page || document;
+  if (reducedMotion) return;
+
   const section = page.querySelector("[data-animate-hero-lights]");
   if (!section || section.__glowingLightsHeroSmallInit) return;
 
@@ -1483,6 +1533,8 @@ function initGlowingLightsHeroSmall(page) {
 // sales page animations
 function initPricingGlowAnimation(page) {
   page = page || document;
+  if (reducedMotion) return;
+
   if (window.innerWidth >= 992) {
     const sections = page.querySelectorAll('[data-pricing-with-glow]');
     if (sections.length === 0) return;
@@ -1512,6 +1564,7 @@ function initBottomBarAnimation(page) {
   page = page || document;
   const bar = page.querySelector('[data-bottom-bar]');
   if (!bar) return;
+  if (reducedMotion) return;
   gsap.set(bar, { y: "6.25rem", opacity: 0 });
   gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
 }
@@ -1606,12 +1659,12 @@ function initFavicons(page) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  
   initLenis();
 
   handleMobileNavLinkClicks();
   // initNavTooltips();
   // initNavigationMenuExpandAnimation();
-
 
   if (has('[data-format-date]')) formatDates();
   if (has('[data-format-number]')) formatNumbers();
