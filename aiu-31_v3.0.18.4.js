@@ -392,7 +392,7 @@ function initCounters(page) {
     // if (DEBUG) console.log(target, targetNumber);
 
     if (reducedMotion) {
-      target.innerHTML = targetNumber.numberFormat(0);
+      target.innerHTML = targetNumber;
       return;
     }
 
