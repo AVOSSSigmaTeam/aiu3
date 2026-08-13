@@ -46,6 +46,7 @@ const isDesktopLikeDevice = window.matchMedia(
 ).matches;
 
 function initLenis() {
+  if (reducedMotion) return;
   if (lenis) return; // already created
   if (!hasLenis) return;
 
