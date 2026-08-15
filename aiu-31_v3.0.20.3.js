@@ -1667,13 +1667,13 @@ function initFooterGlowAnimation(page) {
       }, {
         opacity: .55,
         scale: 1,
-        duration: .75,
+        duration: 1.25,
         ease: "power1.inOut",
         scrollTrigger: {
           trigger: footer,
           start: "top bottom",
           end: "bottom bottom",
-          // markers: DEBUG,
+          markers: DEBUG,
         }
       });
   }
