@@ -1,7 +1,7 @@
 gsap.registerPlugin(CustomEase, ScrollTrigger, SplitText);
 
 const version = "3.0.20";
-const DEBUG = true; //return to false on prod
+const DEBUG = false; //return to false on prod
 
 let lenis = null;
 const lenisLerpValue = 0.165;
@@ -1673,7 +1673,7 @@ function initFooterGlowAnimation(page) {
           trigger: footer,
           start: "top bottom",
           end: "bottom bottom",
-          markers: DEBUG,
+          // markers: DEBUG,
         }
       });
   }
