@@ -1636,6 +1636,7 @@ function initPricingGlowAnimation(page) {
           trigger: section,
           start: "top 75%",
           end: "top center",
+          // markers: DEBUG,
         }
       });
     });
@@ -1669,9 +1670,10 @@ function initFooterGlowAnimation(page) {
         duration: .75,
         ease: "power1.inOut",
         scrollTrigger: {
-          trigger: section,
+          trigger: footer,
           start: "top bottom",
           end: "bottom bottom",
+          // markers: DEBUG,
         }
       });
   }
