@@ -1635,9 +1635,9 @@ function initPricingGlowAnimation(page) {
         scrollTrigger: {
           trigger: section,
           start: "top 75%",
-          end: "top center"
+          end: "top center",
         }
-      })
+      });
     });
   }
 }
@@ -1648,6 +1648,33 @@ function initBottomBarAnimation(page) {
   if (reducedMotion) return;
   gsap.set(bar, { y: "6.25rem", opacity: 0 });
   gsap.to(bar, { y: "0rem", opacity: 1, delay: .75, duration: .3, ease: "outQuad" });
+}
+function initFooterGlowAnimation(page) {
+  page = page || document;
+  if (reducedMotion) return;
+
+  const footer = page.querySelector('[data-sp-footer]');
+  if (!footer) return;
+
+  const glow = footer.querySelector('[data-footer-glow]');
+  if (!glow) return;
+
+  if (window.innerWidth >= 992) {
+    gsap.fromTo(glow, {
+        opacity: .4,
+        scale: .66,
+      }, {
+        opacity: .55,
+        scale: 1,
+        duration: .75,
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom bottom",
+        }
+      });
+  }
 }
 
 
@@ -1786,6 +1813,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (has('[data-service-icon-box]')) initServiceIconBoxHoverAnimation();
   if (has('[data-pricing-with-glow]')) initPricingGlowAnimation(); //scrolltrigger
   if (has('[data-bottom-bar]')) initBottomBarAnimation();
+  if (has('[data-footer-glow]')) initFooterGlowAnimation(); //scrolltrigger
 
   if (has('[data-copyright-year]')) setCopyrightYear();
 
